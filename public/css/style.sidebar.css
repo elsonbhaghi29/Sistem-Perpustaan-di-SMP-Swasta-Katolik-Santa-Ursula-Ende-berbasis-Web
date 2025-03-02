@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+    
+}
+
+
+
+
+
+.container-side{
+    background-color:#E4EAE4;
+    width: 20%;
+    height: calc(100vh - 4rem);
+  
+    
+}
+.dashboard{
+    background-color: #0A7349;
+    position: relative;
+    
+    width: 100%;
+    height:100px;
+    flex-shrink: 0;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+img {
+   
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.container-dashboard{
+  /* background-color: aqua; */
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+    
+
+}
+
+a{
+
+    text-decoration: none;  
+    display: flex;
+    align-items: center;
+    
+   
+}
+.dashboard-text {
+    color: white;
+    color: #E9FEE1;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.container-navigation{
+    /* background-color: #438b43; */
+    padding:20px 0px ;
+}
+
+.navigation-subtitle{
+    color: #666;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 8px 0px;
+    padding: 0px 20px;
+}
+
+.navigation{
+    display: flex;
+    flex-direction: column;
+    /* background-color: antiquewhite; */
+    justify-content: space-between;
+    height: calc(100vh - 16rem );
+    
+}
+
+.subnavigation ul {
+   list-style-type: none;
+   display: flex;
+   flex-direction: column;
+}
+
+.nav a{
+    /* background-color: #0A7349; */
+    padding:10px 20px ;
+    margin-left: 0px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    
+}
+.nav a:hover{
+    background-color: #bcc0bc;
+    
+}
+
+.nav a:is(:link, :active, :visited).active {
+    background-color: #bcc0bc;
+    color: red;
+}
+
+
+
+
+/*  perbaikan  */
+.dropdown-btn:hover{
+    background-color: #bcc0bc;
+    
+}
+
+.dropdown-btn{
+    width: 100%;
+    text-align: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 10px;
+    display: flex;
+    padding:10px 20px ;
+    margin-left: 0px;
+   
+}
+ 
+.sub-menu {
+   display: grid;
+   grid-template-rows: 0fr;
+    transition: 300ms ease-in-out;
+
+    >div {
+        overflow: hidden;
+    }
+}
+
+.sub-menu.show {
+   grid-template-rows: 1fr;
+}
+
+
+.svg:last-child {
+    transition: transform 300ms ease;
+    transform: rotate(0deg); /* Nilai awal */
+    /* background-color: antiquewhite; */
+    padding-bottom: 2px;
+}
+
+.rotate .svg:last-child {
+    transform: rotate(180deg); /* Posisi saat submenu terbuka */
+}
+
+
+
+
+.nav-data {
+    display: flex;
+    align-items: center;
+    /* background-color: #e03030; */
+}
+
+.exits a {
+    display: flex;
+    padding: 20px;
+    gap:10px;
+}
+
+.exits a h3 {
+    color: red;
+}
+
+.exits a .bx {
+    color: red;
+}
+
+
+.nav img {
+ width: 19px;
+ height: 20px;
+ /* background-color: #21ff21; */
+
+}
+
+/* mengubah secara spesifik */
+
+.dropdown-btn img {
+    width: 15px;
+}
+.dropdown-btn img{
+    width: 15px;
+}
+
+
+.bx {
+    font-size: 20px; /* Atur ukuran sesuai kebutuhan */
+    color: #333; /* Sesuaikan warna jika diperlukan */
+  }
+  
+
+.text-nav{
+    color: var(--font-logo, #383838);
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+/* Sub-menu styling */
+
+   
+ 
+  .sub-menu-item {
+    margin: 0px 0px;
+    text-decoration: none;
+    color: #333;
+    padding: 0px;
+  }
+  

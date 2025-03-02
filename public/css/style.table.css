@@ -1,0 +1,338 @@
+.container-book {
+  /* background-color: #0cce6b; */
+  /* margin-left: 20px; */
+  width: 80%;
+}
+
+.container-table {
+  /* background-color: #f24040;   */
+  width: auto;
+  max-height: calc(100vh - 11rem);
+  overflow-y: auto;
+  margin: 0px 20px;
+  scrollbar-width: none;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.head .title {
+  color: var(--font-logo, #383838);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.head .tambah {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 8px;
+  font-size: 12;
+  font-weight: bold;
+  border-radius: 4px;
+  background: var(--secondary-color, #e4eae4);
+  color: var(--dashbord, #0a7349);
+}
+
+.tambah i {
+  color: #0a7349;
+}
+
+/* Table styling */
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+
+  /* background-color: #0cce6b; */
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #0cce6b;
+  color: #f0ffe9;
+  text-transform: uppercase;
+  font-size: 12px;
+  position: sticky;
+  top: 0;
+  /* Agar posisi header tetap di atas */
+  z-index: 1;
+  /* Pastikan berada di atas konten */
+}
+
+.table td {
+  background-color: #f5f5f5;
+  font-size: 12px;
+  overflow: auto;
+  margin-top: 50px;
+}
+
+.kelas table {
+  width: 40%;
+}
+
+.table th.th-no,
+.table th.th-nama,
+.table th.th-aksi {
+  width: 10px;
+}
+
+.table th.th-kategory {
+  width: 9rem;
+}
+.table th.th-name {
+  width: 20rem;
+}
+.table th.th-jumlah {
+  width: 10rem;
+}
+
+.table th.th-deskripsi {
+  width: 50rem;
+}
+
+.table th.th-aksi {
+  width: 20px;
+}
+.table th.th-nama {
+  width: 12rem;
+}
+.table th.th-alamat {
+  width: 30rem;
+}
+
+.table th.th-tgl {
+  width: 8rem;
+}
+.table th.th-tanggal {
+  width: 20rem;
+}
+
+.table td.td-alamat {
+  background-color: #00b4d8;
+  text-align: left;
+}
+
+.table td .container_status {
+  /* display: flex; */
+
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+
+  /* background-color: #0a7349; */
+}
+
+.table td .status {
+  text-align: center;
+  color: #32cd32;
+  /* height: 20px; */
+  /* margin-right: 50px; */
+  /* font-size: 0.6rem; */
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border-radius: 0.75rem;
+  padding: 0.3rem 2rem;
+  box-shadow: 0px 0px 4.4px 0px rgba(135, 135, 135, 0.1);
+}
+
+.book-cover {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Aksi button styling */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 6rem;
+}
+.button_print {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  border: none;
+  padding: 8px 0px 8px 8px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.btn-view {
+  background-color: #4a90e2;
+}
+
+.btn-edit {
+  background-color: #d32f2f;
+}
+
+.btn-delete {
+  background-color: #ff4d4d;
+}
+
+.btn i {
+  font-size: 16px;
+  color: white;
+}
+
+/* report tabel */
+
+.print_container {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+.btn-print {
+  background-color: #e3f2fd;
+  color: #212121;
+  font-family: Poppins;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn i#print {
+  color: black;
+  text-align: center;
+}
+.printAll_container {
+  width: 9.0625rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 0.3125rem;
+  background: #e3f2fd;
+  margin-left: 1.5rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border: none;
+  cursor: pointer;
+}
+
+.printAll_container p {
+  text-align: center;
+  color: #212121;
+  font-family: Poppins;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.search label {
+  color: #939292;
+
+  font-family: Poppins;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+#search_loansdate {
+  width: 20.6875rem;
+  height: 1.5rem;
+  padding: 8px;
+  flex-shrink: 0;
+  border-radius: 0.5625rem;
+  background: var(--secondary-color, #e4eae4);
+  border: none;
+}
+#search_returndate {
+  width: 20.6875rem;
+  height: 1.5rem;
+  padding: 8px;
+  flex-shrink: 0;
+  border-radius: 0.5625rem;
+  background: var(--secondary-color, #e4eae4);
+  border: none;
+}
+
+#search_status {
+  width: 15rem;
+  height: 2.5rem;
+  padding: 0 20px;
+  flex-shrink: 0;
+  border-radius: 0.5625rem;
+  background: var(--secondary-color, #e4eae4);
+  border: none;
+}
+
+.reset {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: #e3f2fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  filter: drop-shadow(0px 0px 3.2px rgba(0, 0, 0, 0.25));
+}
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .table th,
+  .table td {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .book-cover {
+    width: 60px;
+  }
+
+  .btn {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin: 2rem 0rem 0rem 1rem;
+  color: #949494;
+}

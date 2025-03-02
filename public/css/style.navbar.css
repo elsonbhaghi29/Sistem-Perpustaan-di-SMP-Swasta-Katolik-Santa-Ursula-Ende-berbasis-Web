@@ -1,0 +1,88 @@
+.container-navbar {
+    background-color: #00c777;
+    color: #FFFFFF;
+    width: auto;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+}
+.container_logo{
+    align-items: center;
+    
+    
+    /* justify-content: center; */
+    padding-left: 50px;
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    /* background-color: red; */
+
+}
+.container_logo h1{
+    color: #FFF;
+    /* background-color: red; */
+
+    width: 17%;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.container_logo img{
+    width: 57px;
+    height: 57px;
+    flex-shrink: 0;
+}
+
+
+
+.user {
+    color: #FFFFFF;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+ .user .bx {
+    color: #FFFFFF;
+}
+
+.sub-link {
+    
+    position: absolute;
+    top: 64px;
+    background-color: #ffffff;
+    color: #333;
+    padding: 5px 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+   
+    display: none;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+
+.sub-link.visible {
+    display: block;
+}
+
+/* Style untuk link di dalam sub-link */
+.sub-link a {
+    text-decoration: none;
+    color: #383838;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 10px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.sub-link a:hover {
+    color: red;
+}
