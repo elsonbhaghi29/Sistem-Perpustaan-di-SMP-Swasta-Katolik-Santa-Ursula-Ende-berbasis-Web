@@ -179,3 +179,157 @@ canvas {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 726px) {
+  .view-container {
+    width: 160px; /* Lebih kecil dari 180px */
+    height: 50px; /* Lebih kecil dari 55px */
+    gap: 10px; /* Lebih kecil dari 15px */
+  }
+
+  .view-container h1 {
+    font-size: 24px; /* Lebih kecil dari 28px */
+    padding-left: 6px; /* Lebih kecil dari 8px */
+  }
+
+  .view-container p {
+    font-size: 10px; /* Lebih kecil dari 12px */
+  }
+
+  .container_img {
+    width: 3rem; /* Lebih kecil dari 3.5rem */
+    height: 3.2rem; /* Lebih kecil dari 3.7rem */
+  }
+
+  .statistics-container {
+    gap: 12px; /* Lebih kecil dari 15px */
+    margin-top: 12px; /* Lebih kecil dari 15px */
+  }
+
+  .card {
+    border-radius: 6px; /* Lebih kecil dari 8px */
+    margin-bottom: 12px; /* Lebih kecil dari 15px */
+  }
+
+  .card-header {
+    padding: 10px; /* Lebih kecil dari 12px */
+  }
+
+  .card-body {
+    padding: 10px; /* Lebih kecil dari 12px */
+  }
+
+  .activity-list {
+    gap: 10px; /* Lebih kecil dari 12px */
+  }
+
+  .activity-item {
+    padding: 6px; /* Lebih kecil dari 8px */
+  }
+
+  .activity-icon {
+    font-size: 18px; /* Lebih kecil dari 20px */
+    margin-right: 10px; /* Lebih kecil dari 12px */
+  }
+
+  .chart_buttom {
+    gap: 12px; /* Lebih kecil dari 15px */
+  }
+
+  canvas {
+    height: 180px !important; /* Lebih kecil dari 200px */
+  }
+}
+
+@media (max-width: 1280px) {
+  .dashboard_container {
+    padding: 30px; /* Lebih kecil dari 40px */
+    width: calc(100% - 15%);
+  }
+
+  .top_dashboard_container {
+    gap: 15px; /* Lebih kecil dari 20px */
+  }
+
+  .view-container {
+    width: 190px; /* Lebih kecil dari 215px */
+    height: 60px; /* Lebih kecil dari 67px */
+    gap: 15px; /* Lebih kecil dari 20px */
+  }
+
+  #loans-container {
+    background-color: #a1eebd;
+    .container_img {
+      height: 3.8rem;
+    }
+  }
+
+  #book-container {
+    background-color: #a1d9ee;
+
+    .container_img {
+      height: 3.8rem;
+    }
+  }
+
+  #users-container {
+    background-color: #eeb3a1;
+
+    .container_img {
+      height: 3.8rem;
+    }
+  }
+
+  .view-container h1 {
+    font-size: 30px; /* Lebih kecil dari 34px */
+    padding-left: 8px; /* Lebih kecil dari 10px */
+  }
+
+  .view-container p {
+    font-size: 12px; /* Lebih kecil dari 14px */
+  }
+
+  .container_img {
+    width: 3.7rem; /* Lebih kecil dari 4rem */
+    height: 3.9rem; /* Lebih kecil dari 4.2rem */
+  }
+
+  .statistics-container {
+    gap: 15px; /* Lebih kecil dari 20px */
+    margin-top: 15px; /* Lebih kecil dari 20px */
+  }
+
+  .card {
+    border-radius: 8px; /* Lebih kecil dari 10px */
+    margin-bottom: 15px; /* Lebih kecil dari 20px */
+  }
+
+  .card-header {
+    padding: 12px; /* Lebih kecil dari 15px */
+  }
+
+  .card-body {
+    padding: 12px; /* Lebih kecil dari 15px */
+  }
+
+  .activity-list {
+    gap: 12px; /* Lebih kecil dari 15px */
+  }
+
+  .activity-item {
+    padding: 8px; /* Lebih kecil dari 10px */
+  }
+
+  .activity-icon {
+    font-size: 22px; /* Lebih kecil dari 24px */
+    margin-right: 12px; /* Lebih kecil dari 15px */
+  }
+
+  .chart_buttom {
+    gap: 15px; /* Lebih kecil dari 20px */
+  }
+
+  canvas {
+    height: 12rem !important; /* Lebih kecil dari 255px */
+  }
+}
