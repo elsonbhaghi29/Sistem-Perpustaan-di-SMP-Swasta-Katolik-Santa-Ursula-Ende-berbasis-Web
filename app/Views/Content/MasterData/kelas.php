@@ -31,7 +31,7 @@ $encrypter = \Config\Services::encrypter(); ?>
                                 <?php foreach ($all_classes as $index => $class): ?>
                                     <tr>
                                         <td><?= $index + 1 ?></td>
-                                        <td class="email"><?= $class["class_name"] ?></td>
+                                        <td class="class_name"><?= $class["class_name"] ?></td>
 
                                         <td>
                                             <div class="action-buttons">

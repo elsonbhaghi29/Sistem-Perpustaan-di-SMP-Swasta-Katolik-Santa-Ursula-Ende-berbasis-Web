@@ -43,11 +43,11 @@ $classForPopup = $class;
                                 <?php foreach ($list_user as $index => $key): ?>
                                     <tr>
                                         <td><?= $index + 1 ?></td>
-                                        <td class="email"><?= $key['fullname'] ?> </td>
-                                        <td class="email"><?= $key['identification'] ?> </td>
-                                        <td class="email"><?= $key['address'] ?> </td>
-                                        <td class="email"><?= $key['phone'] ?> </td>
-                                        <td class="email"><?= $key['class_name'] ?> </td>
+                                        <td class="fullname"><?= $key['fullname'] ?> </td>
+                                        <td class="identification"><?= $key['identification'] ?> </td>
+                                        <td class="address"><?= $key['address'] ?> </td>
+                                        <td class="phone"><?= $key['phone'] ?> </td>
+                                        <td class="class_name"><?= $key['class_name'] ?> </td>
 
                                         <td>
                                             <div class="action-buttons">

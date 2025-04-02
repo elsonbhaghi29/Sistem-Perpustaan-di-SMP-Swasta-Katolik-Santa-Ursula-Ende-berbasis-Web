@@ -39,8 +39,8 @@ $encrypter = \Config\Services::encrypter(); ?>
                             <?php foreach ($all_category as $index => $key): ?>
                                 <tr>
                                     <td><?= $index + 1 ?></td>
-                                    <td class="email"><?= $key['category_name'] ?></td>
-                                    <td class="email"><?= $key['description'] ?></td>
+                                    <td class="category_name"><?= $key['category_name'] ?></td>
+                                    <td class="description"><?= $key['description'] ?></td>
 
                                     <td>
                                         <div class="action-buttons">

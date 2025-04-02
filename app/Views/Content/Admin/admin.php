@@ -1,14 +1,17 @@
 <?= $this->extend('Layouts/default') ?>
 
 <?php $this->section('content');
-$encrypter = \Config\Services::encrypter(); ?>
+$encrypter = \Config\Services::encrypter();
 
-<head>
-    <link rel="stylesheet" href="<?= base_url("css/style.table.css") ?>" />
-    <link rel="stylesheet" href="<?= base_url("css/style.popup.css") ?>" />
-
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-</head>
+// Dapatkan informasi user yang sedang login
+$id_user = session('id_user');
+$current_user = null;
+if ($id_user) {
+    $decode_id = $encrypter->decrypt(base64_decode($id_user['id']));
+    $current_user = model('UsersModel')->getDataUserById($decode_id);
+}
+$is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
+?>
 
 <body>
     <div class="container-book">
@@ -42,24 +45,54 @@ $encrypter = \Config\Services::encrypter(); ?>
                                 <?php foreach ($list_user as $index => $key): ?>
                                     <tr>
                                         <td><?= $index + 1 ?></td>
-                                        <td class="email"><?= $key['username'] ?> </td>
-                                        <td class="email"><?= $key['fullname'] ?> </td>
-                                        <td class="email"><?= $key['address'] ?> </td>
-                                        <td class="email"><?= $key['phone'] ?> </td>
-                                        <td class="email"><?= $key['identification'] ?> </td>
+                                        <td class="username"><?= $key['username'] ?> </td>
+                                        <td class="fullname"><?= $key['fullname'] ?> </td>
+                                        <td class="address"><?= $key['address'] ?> </td>
+                                        <td class="phone"><?= $key['phone'] ?> </td>
+                                        <td class="identification"><?= $key['identification'] ?> </td>
 
                                         <td>
-                                            <div class="action-buttons">
-                                                <button onclick="viewDetailAdmin(this)" class="btn btn-view" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>">
-                                                    <i class="bx bx-edit"></i> Kelolah
-                                                </button>
+                                            <?php
+                                            // Pengecekan hak akses untuk mengedit/hapus
+                                            $can_edit = false;
 
+                                            // Admin utama (adminsatu) bisa edit semua
+                                            if ($is_main_admin) {
+                                                $can_edit = true;
+                                            }
+                                            // User lain hanya bisa edit dirinya sendiri
+                                            else if ($current_user && $current_user['id'] === $key['id']) {
+                                                $can_edit = true;
+                                            }
 
-                                                <button class="btn btn-edit" onclick="DeleteAdmin(this)" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>" data-name="<?= $key['username'] ?>" data-type="Admin">
-                                                    <i class="bx bx-trash"></i> Hapus
-                                                </button>
+                                            // Khusus untuk admindua, jika dia yang login, hanya tampilkan dirinya yang bisa diedit
+                                            $should_show = true;
+                                            if ($current_user && $current_user['username'] === 'admindua' && $key['username'] !== 'admindua') {
+                                                $should_show = false;
+                                            }
+                                            ?>
 
-                                            </div>
+                                            <?php if ($should_show): ?>
+                                                <div class="action-buttons">
+                                                    <?php if ($can_edit): ?>
+                                                        <button onclick="viewDetailAdmin(this)" class="btn btn-view" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>">
+                                                            <i class="bx bx-edit"></i> Kelolah
+                                                        </button>
+
+                                                        <?php if ($key['username'] !== 'adminsatu'): ?>
+                                                            <button class="btn btn-edit" onclick="DeleteAdmin(this)" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>" data-name="<?= $key['username'] ?>" data-type="Admin">
+                                                                <i class="bx bx-trash"></i> Hapus
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    <?php else: ?>
+                                                        <span>Tidak dapat diedit</span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="action-buttons">
+                                                    <span>Tidak dapat diakses</span>
+                                                </div>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>

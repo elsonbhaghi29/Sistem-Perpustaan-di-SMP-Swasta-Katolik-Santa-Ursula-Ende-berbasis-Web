@@ -595,6 +595,74 @@ class UserController extends BaseController
 
 
     /**
+     * Fungsi untuk mengelola tampilan data admin berdasarkan hak akses login
+     * 
+     * Fungsi ini mengatur data admin yang ditampilkan pada halaman manajemen admin
+     * dengan aturan:
+     * - Jika yang login adalah 'admindua' atu yang admin yang lain, hanya data dirinya sendiri yang ditampilkan
+     * 
+     * @return \CodeIgniter\HTTP\RedirectResponse|string Tampilan halaman manajemen admin
+     */
+    public function manageAdmin()
+    {
+        $id_user = session('id_user');
+        $decode_id = $this->encrypter->decrypt(base64_decode($id_user['id']));
+        $current_user = $this->user->getDataUserById($decode_id);
+
+        // Jika yang login adalah admindua, hanya tampilkan data dirinya
+        if ($current_user['username'] === 'admindua') {
+            $list_user = $this->user->where('id', $decode_id)->findAll();
+        } else {
+            // Untuk admin lain, tampilkan semua admin
+            $list_user = $this->user->where('role', 'Admin')->findAll();
+        }
+
+        $data = [
+            'list_user' => $list_user,
+            'current_user' => $current_user
+        ];
+
+        return view('admin/manage', $data);
+    }
+
+
+    /**
+     * Fungsi untuk memproses permintaan update data admin
+     * 
+     * Fungsi ini melakukan validasi hak akses sebelum mengizinkan perubahan data admin.
+     * Aturan validasi:
+     * - Admin dengan username 'adminsatu' dapat mengedit semua data admin
+     * - Admin lain hanya dapat mengedit data dirinya sendiri
+     * 
+     * @return \CodeIgniter\HTTP\RedirectResponse Response redirect dengan pesan sukses/error
+     */
+    public function updateAdmin()
+    {
+        $id_user = session('id_user');
+        $current_user_id = $this->encrypter->decrypt(base64_decode($id_user['id']));
+        $current_user = $this->user->getDataUserById($current_user_id);
+
+        $target_id = $this->encrypter->decrypt(base64_decode($this->request->getVar('id')));
+        $target_user = $this->user->getDataUserById($target_id);
+
+        // Validasi hak akses
+        $can_edit = false;
+
+        // Admin utama (adminsatu) bisa edit semua
+        if ($current_user['username'] === 'adminsatu') {
+            $can_edit = true;
+        }
+        // User lain hanya bisa edit dirinya sendiri
+        else if ($current_user_id === $target_id) {
+            $can_edit = true;
+        }
+
+        if (!$can_edit) {
+            return ResponHelper::handlerErrorResponRedirect('admin/manage', 'Anda tidak memiliki hak akses untuk mengedit admin ini.');
+        }
+    }
+
+    /**
      * Mengupdate data user berdasarkan id yang dikirimkan
      * 
      * Fungsi ini akan mengupdate data user yang memiliki id yang sama dengan parameter
