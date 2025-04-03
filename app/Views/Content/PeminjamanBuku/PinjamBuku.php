@@ -133,7 +133,7 @@ $encrypter = \Config\Services::encrypter();
                                     <div class="count_book">
                                         <div class="input-jumlah">
                                             <label class="label" for="">Tanggal Peminjaman</label>
-                                            <input class="input-count" type="date" name="loan_date" value="<?php date('d-m-y', time()) ?>" readonly />
+                                            <input class="input-count" type="text" name="loan_date" id="today_date" readonly />
                                         </div>
                                         <div class="input-jumlah">
                                             <label class="label" for="">Tanggal Pengembalian</label>
@@ -259,6 +259,16 @@ $encrypter = \Config\Services::encrypter();
         </div>
     </div>
 </div>
+<script>
+    window.onload = function() {
+        var today = new Date();
+        var day = today.getDate().toString().padStart(2, '0');
+        var month = (today.getMonth() + 1).toString().padStart(2, '0'); // bulan dimulai dari 0, jadi tambahkan 1
+        var year = today.getFullYear();
+        var formattedDate = day + '-' + month + '-' + year;
 
+        document.getElementById('today_date').value = formattedDate;
+    };
+</script>
 <script type="text/javascript" src="<?= base_url('js/loans.js') ?>"></script>
 <?= $this->endSection() ?>
