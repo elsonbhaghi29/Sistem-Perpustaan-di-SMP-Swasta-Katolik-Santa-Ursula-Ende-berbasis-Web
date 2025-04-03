@@ -21,10 +21,12 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                 <div class="title">
                     <h1>Data Admin </h1>
                 </div>
-                <a href="#popup" class="tambah">
-                    <p>Tambah Data</p>
-                    <i class='bx bxs-plus-square'></i>
-                </a>
+                <?php if ($is_main_admin): ?>
+                    <a href="#popup" class="tambah">
+                        <p>Tambah Data</p>
+                        <i class='bx bxs-plus-square'></i>
+                    </a>
+                <?php endif; ?>
             </div>
             <div class="container-table">
                 <div class="table">
@@ -79,7 +81,7 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                                                             <i class="bx bx-edit"></i> Kelolah
                                                         </button>
 
-                                                        <?php if ($key['username'] !== 'adminsatu'): ?>
+                                                        <?php if ($is_main_admin && $key['username'] !== 'adminsatu'): ?>
                                                             <button class="btn btn-edit" onclick="DeleteAdmin(this)" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>" data-name="<?= $key['username'] ?>" data-type="Admin">
                                                                 <i class="bx bx-trash"></i> Hapus
                                                             </button>
@@ -103,34 +105,35 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                             <?php endif; ?>
                         </tbody>
                     </table>
-                    <div class="container__popup" id="popup">
-                        <div class="popup">
-                            <div class="title">
-                                <h1>Tambah Admin</h1>
-                                <a href="" class="popup-close">&times;</a>
-                            </div>
-                            <form action="<?= base_url('user/add') ?>" method="post" autocomplete="off" enctype="multipart/form-data" onsubmit="return validationPasswordAdmin()">
-                                <?= csrf_field() ?>
-                                <input type="hidden" name="type" value="Admin">
-                                <div class="container__input">
-                                    <div class="satu">
-                                        <div class="status_input">
-                                            <div class="input-content status">
-                                                <label class="label" for="">Status</label>
-                                                <input class="input status" type="text" name="role" value="Admin" readonly />
+                    <?php if ($is_main_admin): ?>
+                        <div class="container__popup" id="popup">
+                            <div class="popup">
+                                <div class="title">
+                                    <h1>Tambah Admin</h1>
+                                    <a href="" class="popup-close">&times;</a>
+                                </div>
+                                <form action="<?= base_url('user/add') ?>" method="post" autocomplete="off" enctype="multipart/form-data" onsubmit="return validationPasswordAdmin()">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="type" value="Admin">
+                                    <div class="container__input">
+                                        <div class="satu">
+                                            <div class="status_input">
+                                                <div class="input-content status">
+                                                    <label class="label" for="">Status</label>
+                                                    <input class="input status" type="text" name="role" value="Admin" readonly />
 
+                                                </div>
+                                                <div class="input-content status">
+                                                    <label class="label" for="">Username/Email</label>
+                                                    <input class="input-user" type="text" name="username_email">
+                                                </div>
                                             </div>
-                                            <div class="input-content status">
-                                                <label class="label" for="">Username/Email</label>
-                                                <input class="input-user" type="text" name="username_email">
+                                            <div class="input-content">
+                                                <label class="label" for="">Nama Lengkap</label>
+                                                <input class="input" type="text" name="fullname" />
                                             </div>
-                                        </div>
-                                        <div class="input-content">
-                                            <label class="label" for="">Nama Lengkap</label>
-                                            <input class="input" type="text" name="fullname" />
-                                        </div>
 
-                                        <!-- <div class="input-content">
+                                            <!-- <div class="input-content">
                                             <label class="label" for="">email</label>
                                             <input class="input" type="text" name="email" />
                                         </div> -->
@@ -138,83 +141,84 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
 
 
 
-                                        <div class="count_book">
-                                            <div class="input-jumlah">
-                                                <label class="label" for="">Jenis Kelamin</label>
-                                                <select class="input-count" name="gender" required>
-                                                    <option value="">Pilih</option>
-                                                    <option value="Laki-Laki">1. Laki-Laki</option>
-                                                    <option value="Perempuan">2. Perempuan</option>
+                                            <div class="count_book">
+                                                <div class="input-jumlah">
+                                                    <label class="label" for="">Jenis Kelamin</label>
+                                                    <select class="input-count" name="gender" required>
+                                                        <option value="">Pilih</option>
+                                                        <option value="Laki-Laki">1. Laki-Laki</option>
+                                                        <option value="Perempuan">2. Perempuan</option>
 
-                                                </select>
+                                                    </select>
+                                                </div>
+                                                <div class="input-jumlah">
+                                                    <label class="label" for="">Agama</label>
+                                                    <select class="input-count" name="religion" required>
+                                                        <option value="">Pilih</option>
+                                                        <option value="Islam">1. Islam</option>
+                                                        <option value="Kristen">2. Kristen</option>
+                                                        <option value="Katolik">3. Katolik</option>
+                                                        <option value="Hindu">4. Hindu</option>
+                                                        <option value="Buddha">5. Buddha</option>
+                                                        <option value="Konghucu">6. Konghucu</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="count_book">
+                                                <div class="input-jumlah">
+                                                    <label class="label" for="">Tempat Lahir</label>
+                                                    <input class="input-count" type="text" name="place_birth" autocomplete="off">
+                                                </div>
                                             </div>
                                             <div class="input-jumlah">
-                                                <label class="label" for="">Agama</label>
-                                                <select class="input-count" name="religion" required>
-                                                    <option value="">Pilih</option>
-                                                    <option value="Islam">1. Islam</option>
-                                                    <option value="Kristen">2. Kristen</option>
-                                                    <option value="Katolik">3. Katolik</option>
-                                                    <option value="Hindu">4. Hindu</option>
-                                                    <option value="Buddha">5. Buddha</option>
-                                                    <option value="Konghucu">6. Konghucu</option>
-                                                </select>
-
+                                                <label class="label" for="">Tanggal Lahir</label>
+                                                <input class="input-count" type="date" name="date_birth">
                                             </div>
                                         </div>
-                                        <div class="count_book">
-                                            <div class="input-jumlah">
-                                                <label class="label" for="">Tempat Lahir</label>
-                                                <input class="input-count" type="text" name="place_birth" autocomplete="off">
+
+                                        <div class="dua admin">
+
+                                            <div class="count_book">
+                                                <div class="input-jumlah">
+                                                    <label class="label" for="">Nomor Telephone</label>
+                                                    <input class="input-count" type="number" name="phone">
+
+                                                </div>
+                                                <div class="input-jumlah">
+                                                    <label class="label" for="">NUPTK</label>
+                                                    <input class="input-count" type="number" name="identification">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="input-jumlah">
-                                            <label class="label" for="">Tanggal Lahir</label>
-                                            <input class="input-count" type="date" name="date_birth">
+                                            <div class="input-content">
+                                                <label class="label" for="">Password</label>
+                                                <input class="input" type="Password" name="password" id="password" />
+                                            </div>
+
+                                            <div class="input-content">
+                                                <label class="label" for="">Konfimasi Password</label>
+                                                <input class="input" type="Password" name="password_confirm" id="konfiPassword" />
+                                            </div>
+
+                                            <div class=" input-content">
+                                                <label class="label" for="">alamat </label>
+                                                <textarea class="input alamat" id="alamat" name="address" rows="4" cols="50" placeholder="Masukkan alamat lengkap Anda" required></textarea>
+
+                                                <div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="dua admin">
-
-                                        <div class="count_book">
-                                            <div class="input-jumlah">
-                                                <label class="label" for="">Nomor Telephone</label>
-                                                <input class="input-count" type="number" name="phone">
-
-                                            </div>
-                                            <div class="input-jumlah">
-                                                <label class="label" for="">NUPTK</label>
-                                                <input class="input-count" type="number" name="identification">
-                                            </div>
-                                        </div>
-                                        <div class="input-content">
-                                            <label class="label" for="">Password</label>
-                                            <input class="input" type="Password" name="password" id="password" />
-                                        </div>
-
-                                        <div class="input-content">
-                                            <label class="label" for="">Konfimasi Password</label>
-                                            <input class="input" type="Password" name="password_confirm" id="konfiPassword" />
-                                        </div>
-
-                                        <div class=" input-content">
-                                            <label class="label" for="">alamat </label>
-                                            <textarea class="input alamat" id="alamat" name="address" rows="4" cols="50" placeholder="Masukkan alamat lengkap Anda" required></textarea>
-
-                                            <div>
-                                            </div>
-                                        </div>
+                                    <div class="button">
+                                        <button class="batal batal_add" type="button">Batal</button>
+                                        <button class="simpan" type="submit">Simpan</button>
                                     </div>
-                                </div>
-                                <div class="button">
-                                    <button class="batal batal_add" type="button">Batal</button>
-                                    <button class="simpan" type="submit">Simpan</button>
-                                </div>
+                            </div>
+
+                            </form>
+
                         </div>
-
-                        </form>
-
-                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="container__popup" id="popup__lihat">
                     <div class="popup">
@@ -331,26 +335,28 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                         </form>
                     </div>
                 </div>
-                <div id="popup__delete" class="container__popup">
-                    <div class="popup_delete">
-                        <div class="title_delete">
-                            <div class="form-group">
-                                <h1>Konfirmasi Hapus</h1>
-
-                            </div>
-                        </div>
-                        <div class="popup__content">
+                <?php if ($is_main_admin): ?>
+                    <div id="popup__delete" class="container__popup">
+                        <div class="popup_delete">
                             <div class="title_delete">
-                                <h3>Apakah anda yakin ingin menghapus admin?</h3>
-                                <p></p>
+                                <div class="form-group">
+                                    <h1>Konfirmasi Hapus</h1>
+
+                                </div>
                             </div>
-                            <div class="button-delete">
-                                <button type="button" class="batal" onclick="closeDeletePopup()">Batal</button>
-                                <button type="button" class="simpan" id="confirmDelete">Hapus</button>
+                            <div class="popup__content">
+                                <div class="title_delete">
+                                    <h3>Apakah anda yakin ingin menghapus admin?</h3>
+                                    <p></p>
+                                </div>
+                                <div class="button-delete">
+                                    <button type="button" class="batal" onclick="closeDeletePopup()">Batal</button>
+                                    <button type="button" class="simpan" id="confirmDelete">Hapus</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
