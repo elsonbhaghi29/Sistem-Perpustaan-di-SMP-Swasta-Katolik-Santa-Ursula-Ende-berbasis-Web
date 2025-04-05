@@ -4,120 +4,113 @@
   padding: 0;
   margin: 0;
   font-family: "Poppins";
- 
 }
 
 .container {
-    display: flex;
+  display: flex;
 
-    background-color: #F5F7F8;
-    
-  
-  }
+  background-color: #f5f7f8;
+}
 
 /* container_description */
-.container_description{
-    width: 50%;
-    padding: 40px 0px;
-    background-color:#FFFFFF;
+.container_description {
+  width: 50%;
+  height: calc(100vh - 5rem);
+  padding: 40px 0px;
+  background-color: #ffffff;
 }
 
-.container_logo{
-    padding-left: 50px;
-    width: 60%;
-    display: flex;
-    gap: 20px;
-    /* background-color: red; */
-
+.container_logo {
+  padding-left: 50px;
+  width: 60%;
+  display: flex;
+  gap: 20px;
+  /* background-color: red; */
 }
-.container_logo h1{
-    color: #424242;
-    font-family: Poppins;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-.container_info{
-    /* background-color: #00c777; */
-    display: flex;
-    flex-direction: column;
-    gap:20px;
-    align-items: center;
-}
-.info{
-    width: 644.498px;
-    height: 168.854px;
-    transform: rotate(-0.194deg);
-    flex-shrink: 0;
-    text-align: center;
+.container_logo h1 {
+  color: #424242;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.container_info h1{
-    color: #666;
-    text-align: center;
-    font-family: Poppins;
-    font-size: clamp(0.2rem, 2vw, 2rem);
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+.container_info {
+  /* background-color: #00c777; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+.info {
+  width: 644.498px;
+  height: 168.854px;
+  transform: rotate(-0.194deg);
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.container_info h1 {
+  color: #666;
+  text-align: center;
+  font-family: Poppins;
+  font-size: clamp(0.2rem, 2vw, 2rem);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 .container_info p {
-    color: #666;
-    font-family: Poppins;
-    font-size: clamp(0.1rem, 1vw, 2rem);
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  color: #666;
+  font-family: Poppins;
+  font-size: clamp(0.1rem, 1vw, 2rem);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
-.container_info img{
-    width: 100%;
+.container_info img {
+  width: 100%;
+  height: calc(100vh - 51vh);
 }
 /* end container_description */
-
 
 /* container_auth */
 
 .container_auth {
-    width: 50%;
-    height: 100vh;
-    display: flex;
-    /* align-items: center; */
-    align-items: center;
-    justify-content: center;
-
-
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  /* align-items: center; */
+  align-items: center;
+  justify-content: center;
 }
 
-.information{
-    padding: 0px;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: #00c777; */
+.information {
+  padding: 0px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #00c777; */
 }
 .information p {
-    width: 70%;
-    color: #838383;
-    text-align: center;
-    font-family: Poppins;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  width: 70%;
+  color: #838383;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
-
-
 
 .auth {
   display: flex;
   justify-content: center;
   /* background-color: antiquewhite; */
-  background: var(--secondary-color, #FFFFFF);
+  background: var(--secondary-color, #ffffff);
   box-shadow: 1px 2px 12px 2px rgba(27, 56, 2, 0.25);
   flex-direction: column;
   padding: 1rem;
@@ -131,7 +124,7 @@
   gap: 10px;
 }
 .title {
-    margin-top: 30px;
+  margin-top: 30px;
   color: var(--font-logo, #666);
   font-family: Poppins;
   font-size: 11px;
@@ -148,12 +141,10 @@
 .input-satu {
   display: flex;
   flex-direction: column;
-  
-  
+
   position: relative; /* Agar elemen anak seperti ikon bisa diatur posisinya */
   margin-bottom: 1rem; /* Spasi antar elemen input */
 }
-
 
 .password-wrapper {
   position: relative;
@@ -179,7 +170,6 @@
 .password-wrapper i:hover {
   color: #333;
 }
-
 
 .input-satu input {
   width: 421px;
@@ -226,7 +216,7 @@
   border: none;
   margin-bottom: 18px;
   cursor: pointer;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.20);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
   /* transition: background-color 0.3s ease; */
 }
 .button-masuk:hover {
@@ -247,7 +237,7 @@
   color: #f52727;
 }
 
-.notif{
+.notif {
   padding: 20px;
   display: flex;
   text-align: center;
