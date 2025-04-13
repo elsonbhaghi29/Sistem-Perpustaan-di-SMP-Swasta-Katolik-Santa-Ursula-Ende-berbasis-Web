@@ -57,14 +57,18 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                                             <?php
                                             // Pengecekan hak akses untuk mengedit/hapus
                                             $can_edit = false;
+                                            $can_kelolah = false;
 
-                                            // Admin utama (adminsatu) bisa edit semua
+                                            // Admin utama (adminsatu) tidak perlu kelolah tapi bisa hapus
                                             if ($is_main_admin) {
-                                                $can_edit = true;
+                                                $can_edit = ($key['username'] == 'adminsatu');
+                                                // adminsatu tidak perlu kelolah
+                                                $can_kelolah = ($key['username'] == 'adminsatu');
                                             }
                                             // User lain hanya bisa edit dirinya sendiri
                                             else if ($current_user && $current_user['id'] === $key['id']) {
                                                 $can_edit = true;
+                                                $can_kelolah = true;
                                             }
 
                                             // Khusus untuk admindua, jika dia yang login, hanya tampilkan dirinya yang bisa diedit
@@ -76,18 +80,20 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
 
                                             <?php if ($should_show): ?>
                                                 <div class="action-buttons">
-                                                    <?php if ($can_edit): ?>
+                                                    <?php if ($can_kelolah): ?>
                                                         <button onclick="viewDetailAdmin(this)" class="btn btn-view" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>">
                                                             <i class="bx bx-edit"></i> Kelolah
                                                         </button>
+                                                    <?php endif; ?>
 
-                                                        <?php if ($is_main_admin && $key['username'] !== 'adminsatu'): ?>
-                                                            <button class="btn btn-edit" onclick="DeleteAdmin(this)" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>" data-name="<?= $key['username'] ?>" data-type="Admin">
-                                                                <i class="bx bx-trash"></i> Hapus
-                                                            </button>
-                                                        <?php endif; ?>
-                                                    <?php else: ?>
-                                                        <span>Tidak dapat diedit</span>
+                                                    <?php if ($is_main_admin && $key['username'] !== 'adminsatu'): ?>
+                                                        <button class="btn btn-edit" onclick="DeleteAdmin(this)" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>" data-name="<?= $key['username'] ?>" data-type="Admin">
+                                                            <i class="bx bx-trash"></i> Hapus
+                                                        </button>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!$can_kelolah && !($is_main_admin && $key['username'] !== 'adminsatu')): ?>
+                                                        <span>Tidak dapat diakses</span>
                                                     <?php endif; ?>
                                                 </div>
                                             <?php else: ?>
@@ -132,14 +138,6 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                                                 <label class="label" for="">Nama Lengkap</label>
                                                 <input class="input" type="text" name="fullname" />
                                             </div>
-
-                                            <!-- <div class="input-content">
-                                            <label class="label" for="">email</label>
-                                            <input class="input" type="text" name="email" />
-                                        </div> -->
-
-
-
 
                                             <div class="count_book">
                                                 <div class="input-jumlah">
@@ -251,9 +249,6 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                                         <label class="label" for="">Nama Lengkap</label>
                                         <input class="input" id="fullname" type="text" name="fullname" disabled />
                                     </div>
-
-
-
 
                                     <div class="count_book">
                                         <div class="input-jumlah">
