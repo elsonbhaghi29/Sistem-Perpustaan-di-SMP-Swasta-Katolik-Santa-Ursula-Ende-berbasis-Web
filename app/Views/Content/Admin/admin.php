@@ -71,7 +71,7 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                                                 $can_kelolah = true;
                                             }
 
-                                            // Khusus untuk admindua, jika dia yang login, hanya tampilkan dirinya yang bisa diedit
+                                            // Khusus untuk admin lainyaa, jika dia yang login, hanya tampilkan dirinya yang bisa diedit
                                             $should_show = true;
                                             if ($current_user && $current_user['username'] === 'admindua' && $key['username'] !== 'admindua') {
                                                 $should_show = false;

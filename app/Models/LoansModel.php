@@ -196,7 +196,7 @@ class LoansModel extends Model
             books.author,
             books.isbn, 
             users.id AS user_id, 
-            biodatausers.fullname,
+            biodatausers.,
             biodatausers.identification,
             classes.class_name
         ')

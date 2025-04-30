@@ -333,7 +333,7 @@ $classForPopup = $class;
                             </div>
                             <div class="popup__content">
                                 <div class="title_delete">
-                                    <h3>Apakah anda yakin ingin menghapus buku ini?</h3>
+                                    <h3>Apakah anda yakin ingin menghapus anggota ini?</h3>
                                     <p></p>
                                 </div>
                                 <div class="button-delete">
