@@ -9,7 +9,7 @@ $encrypter = \Config\Services::encrypter();
     <div class="container-buku">
         <div class="head">
             <div class="title">
-                <h1>Data Buku</h1>
+                <h1>Data Peminjaman</h1>
             </div>
             <a href="#popuploans" class="tambah">
                 <p>Tambah Data</p>
