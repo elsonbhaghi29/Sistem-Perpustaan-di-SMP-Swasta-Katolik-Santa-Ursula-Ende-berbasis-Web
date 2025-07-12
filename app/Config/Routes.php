@@ -18,8 +18,8 @@ $routes->group("home", ['filter' => 'auth'], function ($routes) {
 
 $routes->group("user", function ($routes) {
     $routes->get('profile', 'UserController::index');
-    $routes->get('list/(:any)', 'userController::listUser/$1');
-    $routes->get('detail', 'userController::viewDetailUser');
+    $routes->get('list/(:any)', 'UserController::listUser/$1');
+    $routes->get('detail', 'UserController::viewDetailUser');
 
     $routes->post('add', 'UserController::addUser');
 

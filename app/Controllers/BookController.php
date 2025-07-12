@@ -105,7 +105,6 @@ class BookController extends BaseController
                     'count_loans' => $count_loans
                 ]
             ]);
-
         } catch (\Exception $e) {
             log_message('error', 'Error in viewDetailBook: ' . $e->getMessage());
             return $this->response->setJSON([
@@ -293,7 +292,7 @@ class BookController extends BaseController
         return $decode_id;
     }
 
-    
+
     private function getValidationRules($is_update = false)
     {
         return [

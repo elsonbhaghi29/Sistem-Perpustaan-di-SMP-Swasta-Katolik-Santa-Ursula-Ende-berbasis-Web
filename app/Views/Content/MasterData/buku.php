@@ -98,7 +98,7 @@ $encrypter = \Config\Services::encrypter();
                                     </div>
                                     <div class="input-content">
                                         <label class="label" for="">isbn</label>
-                                        <input class="input" type="text" name="isbn" />
+                                        <input class="input" type="number" name="isbn" max="13" />
                                     </div>
                                     <div class="content-author">
                                         <label class="label" for="author">Authors (Pisahkan dengan koma)</label>
@@ -130,7 +130,7 @@ $encrypter = \Config\Services::encrypter();
                                     <div class="count_book">
                                         <div class="input-jumlah">
                                             <label class="label" for="total_copies">Total Copy</label>
-                                            <input class="input-count" type="number" id="total_copies_add" name="total_copies" min="1" step="1" required>
+                                            <input class="input-count" type="number" id="total_copies_add" name="total_copies" min="0" step="1">
                                         </div>
 
                                         <div class="input-jumlah">
@@ -194,7 +194,7 @@ $encrypter = \Config\Services::encrypter();
                                     </div>
                                     <div class="input-content">
                                         <label class="label">ISBN</label>
-                                        <input class="input" type="text" id="isbn" name="isbn" disabled />
+                                        <input class="input" type="number" id="isbn" name="isbn" max="13" disabled />
                                     </div>
                                     <div class="input-content">
                                         <label class="label" for="">Author</label>
