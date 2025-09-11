@@ -198,11 +198,17 @@ class LoansController extends BaseController
                 return ResponHelper::handlerErrorResponJson('Data not found.', 404);
             }
 
-            $data_book = $this->book->getDataById($detail_data['book_id']);
-            if ($data_book) {
-                $data_book['available_books'] += $detail_data['quantity'];
-                $this->book->update($detail_data['book_id'], $data_book);
-            }
+                switch ($detail_data['status']) {
+                case 'Dipinjam':
+                case 'Dikembalikan':
+                case 'Terlambat':
+                    // Jika status ini, blok hapus
+                        return ResponHelper::handlerErrorResponJson(
+                            'Pinjaman ini tidak dapat dihapus di status ini: ' . $detail_data['status'],
+                            400
+                        );
+                        break;
+                }
 
             $this->loans->delete($id_decrypt);
 

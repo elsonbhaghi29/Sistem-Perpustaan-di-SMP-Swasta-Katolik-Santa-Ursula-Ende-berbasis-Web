@@ -464,25 +464,44 @@ function Delete(button) {
           }, 1000);
         }
       },
-      error: function () {
+    error: function (xhr) {
+  // Default error message
+        let errorMessage = "Terjadi kesalahan.";
+
+        // Kalau backend balikin JSON { status, message }
+        if (xhr.responseJSON && xhr.responseJSON.message) {
+          errorMessage = xhr.responseJSON.message;
+        } else if (xhr.responseText) {
+          try {
+            const res = JSON.parse(xhr.responseText);
+            if (res.message) {
+              errorMessage = res.message;
+            }
+          } catch (e) {
+            errorMessage = xhr.responseText;
+          }
+        }
+
         Toastify({
-          className: "notif bx bxs-check-circle",
-          text: "Error: Hapus Buku",
-          duration: 3000,
-          gravity: "top", // top or bottom
-          position: "right", // left, center, or right
+          className: "notif bx bxs-x-circle",
+          text: "Error: " + errorMessage,
+          duration: 5000,
+          gravity: "top",
+          position: "right",
           backgroundColor: "#FFD9E7",
           style: {
             marginTop: "60px",
-            color: "green",
+            color: "red",
             borderRadius: "8px",
           },
-          escapeHTML: false, // Allow HTML content
+          escapeHTML: false,
         }).showToast();
+
         setTimeout(() => {
           window.location.href = "/loans/list";
         }, 1000);
       },
+
     });
   };
 
