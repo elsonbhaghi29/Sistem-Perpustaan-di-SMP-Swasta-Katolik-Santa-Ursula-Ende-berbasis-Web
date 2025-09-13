@@ -97,12 +97,12 @@ function toggleEdit(checkbox) {
 }
 
 /*
-Fungsi untuk validasi jumlah pinjam
+  Fungsi untuk validasi jumlah pinjam
 
-ini fungsi untuk mengecek jika 
-dia set value 0 maka akan ada informasi error 
-dan jika kita melebih dari ketersediaan maka dia akan error juga
-*/
+  ini fungsi untuk mengecek jika 
+  dia set value 0 maka akan ada informasi error 
+  dan jika kita melebih dari ketersediaan maka dia akan error juga
+  */
 function validateQuantity() {
   const totalBooksInput = document.querySelector(
     "#popup__lihat input[name='quantity']"
@@ -464,8 +464,8 @@ function Delete(button) {
           }, 1000);
         }
       },
-    error: function (xhr) {
-  // Default error message
+      error: function (xhr) {
+        // Default error message
         let errorMessage = "Terjadi kesalahan.";
 
         // Kalau backend balikin JSON { status, message }
@@ -501,7 +501,6 @@ function Delete(button) {
           window.location.href = "/loans/list";
         }, 1000);
       },
-
     });
   };
 

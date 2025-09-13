@@ -90,7 +90,7 @@ class UserController extends BaseController
             return redirect()->back()->with('error', 'Pengguna tidak ditemukan');
         }
 
-        $view = $type === 'Admin' ? 'content/Admin/admin' : 'content/MasterData/anggota';
+        $view = $type === 'Admin' ? 'Content/Admin/admin' : 'Content/MasterData/anggota';
 
         // dd($data);
         return view($view, $data);
@@ -279,7 +279,7 @@ class UserController extends BaseController
         ];
         // $data['all_classes'] = $all_classes; // Kirim data ke view
 
-        return view('content/MasterData/kelas', $data);
+        return view('Content/MasterData/kelas', $data);
     }
 
     public function viewDetailClass()
