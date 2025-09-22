@@ -41,7 +41,16 @@ $encrypter = \Config\Services::encrypter();
                                     <td><?= $index['fullname'] ?></td>
                                     <td><?= $index['book_name'] ?></td>
                                     <td><?= implode(", ", json_decode($index['author'], true)) ?></td>
-                                    <td><?= date('d-m-Y', strtotime($index['loan_date'])) ?></td>
+                                    <td>
+                                        <?php
+                                        // Tampilkan tanggal jika valid, jika tidak tampilkan "Tidak tersedia"
+                                        if ($index['loan_date'] && $index['loan_date'] !== '0000-00-00') {
+                                            echo date('d-m-Y', strtotime($index['loan_date']));
+                                        } else {
+                                            echo 'Tidak tersedia';
+                                        }
+                                        ?>
+                                    </td>
                                     <td><?= date('d-m-Y', strtotime($index['return_date_expected'])) ?></td>
                                     <td><?= $index['quantity'] ?></td>
                                     <td>
@@ -83,7 +92,7 @@ $encrypter = \Config\Services::encrypter();
                 </table>
 
 
-                <!-- pop add peminjaman -->
+                <!-- pop add peminjaman - DIPERBAIKI -->
                 <div class="container__popup" id="popuploans">
                     <div class="popup_loans">
                         <div class="title">
@@ -122,7 +131,6 @@ $encrypter = \Config\Services::encrypter();
                                         <div class="input-jumlah">
                                             <label class="label" for="">Persediaan</label>
                                             <input class="input-count" type="text" name="available_books" readonly />
-
                                         </div>
                                         <div class="input-jumlah">
                                             <label class="label" for="">Jumlah Yang dipinjam</label>
@@ -133,11 +141,12 @@ $encrypter = \Config\Services::encrypter();
                                     <div class="count_book">
                                         <div class="input-jumlah">
                                             <label class="label" for="">Tanggal Peminjaman</label>
-                                            <input class="input-count" type="text" name="loan_date" id="today_date" readonly />
+                                            <!-- PERBAIKAN: Menggunakan type="date" untuk konsistensi -->
+                                            <input class="input-count" type="date" name="loan_date" id="loan_date_add" required />
                                         </div>
                                         <div class="input-jumlah">
                                             <label class="label" for="">Tanggal Pengembalian</label>
-                                            <input class="input-count" type="date" name="return_date_expected" />
+                                            <input class="input-count" type="date" name="return_date_expected" id="return_date_add" required />
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +178,6 @@ $encrypter = \Config\Services::encrypter();
                                     <div class="input-content">
                                         <label class="label" for="">Nama Anggota</label>
                                         <input class="input" type="text" name="user_id" readonly>
-
                                     </div>
                                     <div class="count_book">
                                         <div class="input-jumlah">
@@ -200,13 +208,11 @@ $encrypter = \Config\Services::encrypter();
                                         <label class="label" for="">Judul Buku</label>
                                         <input class="input" type="text" name="book_name">
                                         <input class="hidden" type="text" name="book_id">
-
                                     </div>
                                     <div class="count_book">
                                         <div class="input-jumlah">
                                             <label class="label" for="">Persediaan</label>
                                             <input class="input-count" type="text" name="available_books" readonly />
-
                                         </div>
                                         <div class="input-jumlah">
                                             <label class="label" for="">Jumlah Yang dipinjam</label>
@@ -217,11 +223,11 @@ $encrypter = \Config\Services::encrypter();
                                     <div class="count_book">
                                         <div class="input-jumlah">
                                             <label class="label" for="">Tanggal Peminjaman</label>
-                                            <input class="input-count" type="date" name="loan_date" value="<?php date('d-m-y', time()) ?>" readonly />
+                                            <input class="input-count" type="date" name="loan_date" id="edit_loan_date" readonly />
                                         </div>
                                         <div class="input-jumlah">
                                             <label class="label" for="">Tanggal Pengembalian</label>
-                                            <input class="input-count" type="date" name="return_date_expected" disabled />
+                                            <input class="input-count" type="date" name="return_date_expected" id="edit_return_date" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -259,16 +265,35 @@ $encrypter = \Config\Services::encrypter();
         </div>
     </div>
 </div>
-<script>
-    window.onload = function() {
-        var today = new Date();
-        var day = today.getDate().toString().padStart(2, '0');
-        var month = (today.getMonth() + 1).toString().padStart(2, '0'); // bulan dimulai dari 0, jadi tambahkan 1
-        var year = today.getFullYear();
-        var formattedDate = day + '-' + month + '-' + year;
 
-        document.getElementById('today_date').value = formattedDate;
-    };
+<script>
+    // Set tanggal default untuk form tambah data
+    document.addEventListener('DOMContentLoaded', function() {
+        setDefaultDates();
+    });
+
+    function setDefaultDates() {
+        const today = new Date();
+        const nextWeek = new Date();
+        nextWeek.setDate(today.getDate() + 7);
+
+        // Format untuk input type="date" (YYYY-MM-DD)
+        const formatForDateInput = (date) => {
+            return date.toISOString().split('T')[0];
+        };
+
+        // Set tanggal default
+        const loanDateInput = document.getElementById('loan_date_add');
+        const returnDateInput = document.getElementById('return_date_add');
+
+        if (loanDateInput) {
+            loanDateInput.value = formatForDateInput(today);
+        }
+
+        if (returnDateInput) {
+            returnDateInput.value = formatForDateInput(nextWeek);
+        }
+    }
 </script>
 <script type="text/javascript" src="<?= base_url('js/loans.js') ?>"></script>
 <?= $this->endSection() ?>
