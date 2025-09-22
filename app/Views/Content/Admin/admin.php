@@ -10,7 +10,7 @@ if ($id_user) {
     $decode_id = $encrypter->decrypt(base64_decode($id_user['id']));
     $current_user = model('UsersModel')->getDataUserById($decode_id);
 }
-$is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
+$is_main_admin = ($current_user && $current_user['username'] === 'admin');
 ?>
 
 <body>
@@ -59,11 +59,11 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                                             $can_edit = false;
                                             $can_kelolah = false;
 
-                                            // Admin utama (adminsatu) tidak perlu kelolah tapi bisa hapus
+                                            // Admin utama (admin) tidak perlu kelolah tapi bisa hapus
                                             if ($is_main_admin) {
-                                                $can_edit = ($key['username'] == 'adminsatu');
-                                                // adminsatu tidak perlu kelolah
-                                                $can_kelolah = ($key['username'] == 'adminsatu');
+                                                $can_edit = ($key['username'] == 'admin');
+                                                // admin tidak perlu kelolah
+                                                $can_kelolah = ($key['username'] == 'admin');
                                             }
                                             // User lain hanya bisa edit dirinya sendiri
                                             else if ($current_user && $current_user['id'] === $key['id']) {
@@ -86,13 +86,13 @@ $is_main_admin = ($current_user && $current_user['username'] === 'adminsatu');
                                                         </button>
                                                     <?php endif; ?>
 
-                                                    <?php if ($is_main_admin && $key['username'] !== 'adminsatu'): ?>
+                                                    <?php if ($is_main_admin && $key['username'] !== 'admin'): ?>
                                                         <button class="btn btn-edit" onclick="DeleteAdmin(this)" data-id="<?= urlencode(base64_encode($encrypter->encrypt($key['id']))) ?>" data-name="<?= $key['username'] ?>" data-type="Admin">
                                                             <i class="bx bx-trash"></i> Hapus
                                                         </button>
                                                     <?php endif; ?>
 
-                                                    <?php if (!$can_kelolah && !($is_main_admin && $key['username'] !== 'adminsatu')): ?>
+                                                    <?php if (!$can_kelolah && !($is_main_admin && $key['username'] !== 'admin')): ?>
                                                         <span>Tidak dapat diakses</span>
                                                     <?php endif; ?>
                                                 </div>

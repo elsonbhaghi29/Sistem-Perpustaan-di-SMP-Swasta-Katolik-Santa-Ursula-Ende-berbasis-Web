@@ -246,12 +246,6 @@ class BookController extends BaseController
             return ResponHelper::handlerErrorResponJson('Tidak berhasil Dihapus', 400);
         }
 
-        $loans = $this->loan->getCountLoanByIdBook($id_book);
-        if ($loans > 0) {
-            session()->setFlashdata('error', 'Buku sedang dipinjam.');
-            return ResponHelper::handlerErrorResponJson('Tidak berhasil Dihapus', 400);
-        }
-
         try {
             $this->db->transStart();
             $cover_path = $book['cover_img'];
@@ -352,12 +346,7 @@ class BookController extends BaseController
                     'is_natural' => 'Jumlah total buku harus berupa angka positif.',
                 ],
             ],
-            'total_copies' => [
-                'rules' => 'is_natural',
-                'errors' => [
-                    'is_natural' => 'Jumlah total salinan harus berupa angka positif.',
-                ],
-            ],
+
             'cover_img' => [
                 'rules' => 'permit_empty',
                 'errors' => [

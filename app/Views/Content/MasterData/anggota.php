@@ -171,7 +171,7 @@ $classForPopup = $class;
 
                                             </div>
                                             <div class="input-jumlah">
-                                                <label class="label" for="">NIP</label>
+                                                <label class="label" for="">NIS</label>
                                                 <input class="input-count" type="number" name="identification">
                                             </div>
                                         </div>

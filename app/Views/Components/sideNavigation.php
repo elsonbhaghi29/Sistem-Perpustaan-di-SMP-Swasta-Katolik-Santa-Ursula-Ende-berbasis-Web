@@ -26,21 +26,22 @@
                         </button>
                         <div class="sub-menu" id="">
                             <div>
-                                <a href="<?= base_url('class/all') ?>" class="sub-menu-item" id="kategori-link">
-                                    <i class='bx bxs-home-smile'></i>
-                                    <p>Class</p>
-                                </a>
                                 <a href="<?= base_url('category/all') ?>" class="sub-menu-item" id="kategori-link">
                                     <i class="bx bx-category-alt"></i>
-                                    <p>Kategori</p>
+                                    <p>Kategori Buku</p>
                                 </a>
                                 <a href="<?= base_url('book/dashboard') ?>" class="sub-menu-item buku" id="buku-link">
                                     <i class="bx bx-book-alt"></i>
                                     <p>Buku</p>
                                 </a>
+                                <a href="<?= base_url('class/all') ?>" class="sub-menu-item" id="class-link">
+                                    <i class='bx bxs-home-smile'></i>
+                                    <p>Kelas</p>
+                                </a>
                                 <a href="<?= base_url('user/list/Anggota') ?>" class="sub-menu-item" id="anggota-link">
                                     <i class="bx bx-group"></i>
                                     <p>Anggota</p>
+                                    
                                 </a>
                             </div>
                         </div>

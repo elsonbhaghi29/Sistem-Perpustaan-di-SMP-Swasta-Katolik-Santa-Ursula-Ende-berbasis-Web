@@ -77,18 +77,57 @@ class LoansController extends BaseController
 
     public function addLoans()
     {
-        $id_user = session('id_user');
-        if (!$id_user || !isset($id_user['id'])) {
-            return ResponHelper::handlerErrorResponRedirect('loans/list', 'Data tidak valid. id user');
-        }
-
-        $decode_id = $this->encrypter->decrypt(base64_decode($id_user['id']));
-        if ($this->user->getDataUserById($decode_id) == null) {
-            return ResponHelper::handlerErrorResponRedirect('loans/list', 'Data tidak valid. tdk dapat id');
-        }
-
+        // Ambil data dari form
         $data_loans = $this->request->getPost();
-        $data_loans['pelayan_id'] = $decode_id;
+        // Tambahkan baris ini sebelum insert
+        $data_loans['loan_date'] = date('Y-m-d'); // Simpan tanggal hari ini
+
+        if (!isset($data_loans['user_id'])) {
+            return ResponHelper::handlerErrorResponRedirect('loans/list', 'Data tidak valid. User tidak ditemukan.');
+        }
+
+        $id_user_siswa = $data_loans['user_id']; // ID siswa dari form
+
+        // Pastikan user siswa ada di database
+        if ($this->user->getDataUserById($id_user_siswa) == null) {
+            return ResponHelper::handlerErrorResponRedirect('loans/list', 'Data tidak valid. User tidak ditemukan di sistem.');
+        }
+
+        // Ambil ID admin dari session untuk kolom pelayan_id
+        $id_user_session = session('id_user');
+        if (!$id_user_session || !isset($id_user_session['id'])) {
+            return ResponHelper::handlerErrorResponRedirect('loans/list', 'Data tidak valid. Tidak ada admin login.');
+        }
+        $decode_id_admin = $this->encrypter->decrypt(base64_decode($id_user_session['id']));
+
+        // Update otomatis pinjaman yang sudah melewati batas waktu -> jadi "Terlambat"
+        $today = date('Y-m-d');
+        $loans_dipinjam = $this->loans->where('user_id', $id_user_siswa)
+            ->where('status', 'Dipinjam')
+            ->findAll();
+
+        foreach ($loans_dipinjam as $loan) {
+            if ($loan['return_date_expected'] < $today) {
+                $this->loans->update($loan['id'], ['status' => 'Terlambat']);
+            }
+        }
+
+        // Cek apakah masih ada pinjaman dengan status Terlambat
+        $loan_terlambat = $this->loans->where('user_id', $id_user_siswa)
+            ->where('status', 'Terlambat')
+            ->first();
+
+        if ($loan_terlambat) {
+            return ResponHelper::handlerErrorResponRedirect(
+                'loans/list',
+                'Siwa ini tidak dapat meminjam buku karena status pinjamanya TERLAMBAT. Harap kembalikan buku terlebih dahulu.'
+            );
+        }
+
+        // Set pelayan_id menggunakan admin yang login
+        $data_loans['pelayan_id'] = $decode_id_admin;
+
+        // Hitung update stok buku
         $quantity = $data_loans['quantity'];
         $data_available = $data_loans['available_books'] - $quantity;
         unset($data_loans['available_books']);
@@ -149,6 +188,9 @@ class LoansController extends BaseController
                         $updateData['return_date_expected'] = $data_loans['return_date_expected'];
                         $updateData['status'] = 'Diperpanjang';
                         break;
+                    case 'Terlambat':
+                        $updateData['status'] = 'Terlambat';
+                        break;
                 }
             }
 
@@ -198,17 +240,16 @@ class LoansController extends BaseController
                 return ResponHelper::handlerErrorResponJson('Data not found.', 404);
             }
 
-                switch ($detail_data['status']) {
+            switch ($detail_data['status']) {
                 case 'Dipinjam':
-                case 'Dikembalikan':
                 case 'Terlambat':
                     // Jika status ini, blok hapus
-                        return ResponHelper::handlerErrorResponJson(
-                            'Pinjaman ini tidak dapat dihapus di status ini: ' . $detail_data['status'],
-                            400
-                        );
-                        break;
-                }
+                    return ResponHelper::handlerErrorResponJson(
+                        'Pinjaman ini tidak dapat dihapus di status ini: ' . $detail_data['status'],
+                        400
+                    );
+                    break;
+            }
 
             $this->loans->delete($id_decrypt);
 
