@@ -15,7 +15,7 @@ $encrypter = \Config\Services::encrypter(); ?>
         <div class="container-buku">
             <div class="head">
                 <div class="title">
-                    <h1>Data Kategori</h1>
+                    <h1>Data Kategori Buku</h1>
                 </div>
                 <a href="#popup_addcategory" class="tambah">
                     <p>Tambah Data</p>

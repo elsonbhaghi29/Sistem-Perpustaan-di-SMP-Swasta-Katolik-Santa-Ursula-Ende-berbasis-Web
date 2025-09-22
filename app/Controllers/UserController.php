@@ -226,15 +226,10 @@ class UserController extends BaseController
         $id_user = $_GET['users'] ?? null;
         $id_decrypt = $this->decryptId($id_user);
 
-        $check_loans = $this->loan->getAvailableLoans($id_decrypt);
-        if (!empty($check_loans)) {
-            return ResponHelper::handlerErrorResponJson(['error' => 'User masih memiliki pinjaman'], 400);
-        }
-
         try {
             $this->db->transStart();
 
-            $this->loan->deleteLoan($id_decrypt);
+            // $this->loan->deleteLoan($id_decrypt);
             $this->biodata->deleteBiodata($id_decrypt);
             $this->user->deleteUser($id_decrypt);
 

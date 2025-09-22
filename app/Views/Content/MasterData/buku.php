@@ -98,7 +98,7 @@ $encrypter = \Config\Services::encrypter();
                                     </div>
                                     <div class="input-content">
                                         <label class="label" for="">isbn</label>
-                                        <input class="input" type="number" name="isbn" max="13" />
+                                        <input class="input" type="number" name="isbn" />
                                     </div>
                                     <div class="content-author">
                                         <label class="label" for="author">Authors (Pisahkan dengan koma)</label>
@@ -194,7 +194,7 @@ $encrypter = \Config\Services::encrypter();
                                     </div>
                                     <div class="input-content">
                                         <label class="label">ISBN</label>
-                                        <input class="input" type="number" id="isbn" name="isbn" max="13" disabled />
+                                        <input class="input" type="number" id="isbn" name="isbn" disabled />
                                     </div>
                                     <div class="input-content">
                                         <label class="label" for="">Author</label>
