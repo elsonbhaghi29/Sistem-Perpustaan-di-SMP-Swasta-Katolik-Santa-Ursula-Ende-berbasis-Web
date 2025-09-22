@@ -189,7 +189,7 @@ $encrypter = \Config\Services::encrypter();
                                             <select class="input-count" id="status" name="status" disabled>
                                                 <option id="status" value="" selected></option>
                                                 <option value="Dipinjam">Dipinjam</option>
-                                                <option value="Diperpanjang">Diperpanjang</option>
+                                                <!-- <option value="Diperpanjang">Diperpanjang</option> -->
                                                 <option value="Dikembalikan">Dikembalikan</option>
                                                 <option value="Terlambat">Terlambat</option>
                                             </select>
