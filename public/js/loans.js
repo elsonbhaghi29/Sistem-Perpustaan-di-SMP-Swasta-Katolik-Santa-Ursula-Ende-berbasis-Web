@@ -299,9 +299,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // User Dropdown Implementation
 document.addEventListener("DOMContentLoaded", function () {
   // Referensi elemen
-  const memberSelect = document.querySelector("select[name='user_id']");
+  const memberSelect = document.querySelector("userSelect");
   const classInput = document.querySelector("input[name='class_name']");
-  const bookSelect = document.querySelector("select[name='book_id']");
+  const bookSelect = document.querySelector("bookSelect");
   const availableInput = document.querySelector(
     "input[name='available_books']"
   );
