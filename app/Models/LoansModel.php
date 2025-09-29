@@ -202,7 +202,7 @@ class LoansModel extends Model
         ')
             ->join('books', 'books.id = loans.book_id')
             ->join('users', 'users.id = loans.user_id')
-            ->join('biodatausers', 'biodatausers.id = users.id')
+            ->join('biodatausers', 'biodatausers_id = users.id')
             ->join('classes', 'classes.id = biodatausers.class_id')
             ->where('loans.id', $id_loan)
             ->first();
@@ -230,7 +230,7 @@ class LoansModel extends Model
         ')
             ->join('books', 'books.id = loans.book_id')
             ->join('users', 'users.id = loans.user_id')
-            ->join('biodatausers', 'biodatausers.id = users.id')
+            ->join('biodatausers', 'biodatausers_id = users.id')
             ->join('classes', 'classes.id = biodatausers.class_id');
 
         if (!empty($loansDate)) {
