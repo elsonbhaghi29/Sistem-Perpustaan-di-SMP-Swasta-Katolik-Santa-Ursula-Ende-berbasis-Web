@@ -202,11 +202,12 @@ class LoansModel extends Model
         ')
             ->join('books', 'books.id = loans.book_id')
             ->join('users', 'users.id = loans.user_id')
-            ->join('biodatausers', 'biodatausers_id = users.id')
+            ->join('biodatausers', 'biodatausers.user_id = users.id') // ✅ PERBAIKAN
             ->join('classes', 'classes.id = biodatausers.class_id')
             ->where('loans.id', $id_loan)
             ->first();
     }
+
 
     public function getLoansByFilter($loansDate = null, $returnDate = null, $status = null)
     {
@@ -230,7 +231,7 @@ class LoansModel extends Model
         ')
             ->join('books', 'books.id = loans.book_id')
             ->join('users', 'users.id = loans.user_id')
-            ->join('biodatausers', 'biodatausers_id = users.id')
+            ->join('biodatausers', 'biodatausers.user_id = users.id') // ✅ PERBAIKAN
             ->join('classes', 'classes.id = biodatausers.class_id');
 
         if (!empty($loansDate)) {
@@ -241,7 +242,6 @@ class LoansModel extends Model
             $this->where("DATE(loans.return_date_expected)", $returnDate);
         }
 
-        // Filter berdasarkan status jika ada
         if (!empty($status)) {
             $this->where("loans.status", $status);
         }
