@@ -295,19 +295,54 @@ document.addEventListener("DOMContentLoaded", function () {
     formatDate(nextWeek);
 });
 
-// dropdown search data user and books
-// User Dropdown Implementation
-// ==================== DROPDOWN SEARCH DATA USER AND BOOKS ====================
+// ==================== INISIALISASI SAAT POPUP DIBUKA ====================
 document.addEventListener("DOMContentLoaded", function () {
-  // ========== POPUP TAMBAH (#popuploans) ==========
-  const userSelectAdd = document.getElementById("userSelect"); // ✅ BENAR
+  const popupLink = document.querySelector('a[href="#popuploans"]');
+
+  if (popupLink) {
+    popupLink.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const popup = document.getElementById("popuploans");
+      if (popup) {
+        popup.style.display = "flex";
+        popup.style.opacity = "1";
+        popup.style.visibility = "visible";
+
+        // Inisialisasi dropdown setelah popup tampil
+        setTimeout(() => {
+          initializeAddFormDropdowns();
+        }, 100);
+      }
+    });
+  }
+});
+
+// ==================== FUNGSI INISIALISASI DROPDOWN ====================
+function initializeAddFormDropdowns() {
+  const userSelectAdd = document.getElementById("userSelect");
   const classInputAdd = document.querySelector(
     "#popuploans input[name='class_name']"
   );
-  const bookSelectAdd = document.getElementById("bookSelect"); // ✅ BENAR
+  const bookSelectAdd = document.getElementById("bookSelect");
   const availableInputAdd = document.querySelector(
     "#popuploans input[name='available_books']"
   );
+
+  console.log("🎯 Inisialisasi dropdown...");
+  console.log("userSelectAdd:", userSelectAdd);
+  console.log("classInputAdd:", classInputAdd);
+  console.log("bookSelectAdd:", bookSelectAdd);
+
+  if (
+    !userSelectAdd ||
+    !classInputAdd ||
+    !bookSelectAdd ||
+    !availableInputAdd
+  ) {
+    console.error("❌ Ada element yang tidak ditemukan!");
+    return;
+  }
 
   // Fungsi matcher untuk Select2
   function customMatcher(params, data) {
@@ -339,114 +374,122 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   };
 
-  // ========== INISIALISASI SELECT2 UNTUK USER ==========
-  if (userSelectAdd) {
-    $(userSelectAdd).select2({
-      ...select2Config,
-      placeholder: "Pilih Anggota",
-      dropdownParent: $("#popuploans"),
-    });
-
-    // Fetch data user dari API
-    fetch(`${window.location.origin}/user/all-user`)
-      .then((response) => response.json())
-      .then((data) => {
-        $(userSelectAdd).empty();
-        $(userSelectAdd).append(new Option("Pilih Anggota", ""));
-
-        data.data.forEach((member) => {
-          $(userSelectAdd).append(new Option(member.fullname, member.id));
-        });
-
-        $(userSelectAdd).trigger("change");
-      })
-      .catch((err) => console.error("Error mengambil data anggota: ", err));
-
-    // ========== ✅ EVENT: Auto-fill class saat user dipilih ==========
-    $(userSelectAdd).on("change", function () {
-      const memberId = $(this).val();
-
-      console.log("🔍 User ID dipilih:", memberId); // Debug
-
-      if (memberId && classInputAdd) {
-        fetch(`${window.location.origin}/user/class?users=${memberId}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("📦 Response API class:", data); // Debug
-
-            if (data.data && data.data.class_name) {
-              classInputAdd.value = data.data.class_name;
-              console.log("✅ Class berhasil diisi:", data.data.class_name); // Debug
-            } else {
-              classInputAdd.value = "";
-              console.log("⚠️ Class tidak ditemukan dalam response");
-            }
-          })
-          .catch((err) => {
-            console.error("❌ Error mengambil data kelas: ", err);
-            classInputAdd.value = "";
-          });
-      } else if (classInputAdd) {
-        classInputAdd.value = "";
-      }
-    });
-  } else {
-    console.error("❌ Element #userSelect tidak ditemukan!");
+  // Destroy existing Select2 jika ada
+  if ($(userSelectAdd).data("select2")) {
+    $(userSelectAdd).select2("destroy");
   }
+  if ($(bookSelectAdd).data("select2")) {
+    $(bookSelectAdd).select2("destroy");
+  }
+
+  // ========== INISIALISASI SELECT2 UNTUK USER ==========
+  $(userSelectAdd).select2({
+    ...select2Config,
+    placeholder: "Pilih Anggota",
+    dropdownParent: $("#popuploans"),
+  });
+
+  // Fetch data user dari API
+  fetch(`${window.location.origin}/user/all-user`)
+    .then((response) => response.json())
+    .then((data) => {
+      $(userSelectAdd).empty();
+      $(userSelectAdd).append(new Option("Pilih Anggota", ""));
+
+      data.data.forEach((member) => {
+        $(userSelectAdd).append(new Option(member.fullname, member.id));
+      });
+
+      $(userSelectAdd).trigger("change");
+      console.log("✅ Data user berhasil dimuat");
+    })
+    .catch((err) => console.error("❌ Error mengambil data anggota: ", err));
+
+  // ========== EVENT: Auto-fill class saat user dipilih ==========
+  // HAPUS event handler lama dulu
+  $(userSelectAdd).off("change");
+
+  // Tambah event handler baru
+  $(userSelectAdd).on("change", function () {
+    const memberId = $(this).val();
+
+    console.log("🔍 User ID dipilih:", memberId);
+
+    if (memberId) {
+      fetch(`${window.location.origin}/user/class?users=${memberId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("📦 Response API class:", data);
+
+          if (data.data && data.data.class_name) {
+            classInputAdd.value = data.data.class_name;
+            console.log("✅ Class berhasil diisi:", data.data.class_name);
+          } else {
+            classInputAdd.value = "";
+            console.log("⚠️ Class tidak ditemukan dalam response");
+          }
+        })
+        .catch((err) => {
+          console.error("❌ Error mengambil data kelas:", err);
+          classInputAdd.value = "";
+        });
+    } else {
+      classInputAdd.value = "";
+    }
+  });
 
   // ========== INISIALISASI SELECT2 UNTUK BUKU ==========
-  if (bookSelectAdd) {
-    $(bookSelectAdd).select2({
-      ...select2Config,
-      placeholder: "Pilih Buku",
-      dropdownParent: $("#popuploans"),
-    });
+  $(bookSelectAdd).select2({
+    ...select2Config,
+    placeholder: "Pilih Buku",
+    dropdownParent: $("#popuploans"),
+  });
 
-    // Fetch data buku dari API
-    fetch(`${window.location.origin}/book/all-books`)
-      .then((response) => response.json())
-      .then((data) => {
-        $(bookSelectAdd).empty();
-        $(bookSelectAdd).append(new Option("Pilih Buku", ""));
+  // Fetch data buku dari API
+  fetch(`${window.location.origin}/book/all-books`)
+    .then((response) => response.json())
+    .then((data) => {
+      $(bookSelectAdd).empty();
+      $(bookSelectAdd).append(new Option("Pilih Buku", ""));
 
-        data.data.forEach((book) => {
-          const option = new Option(book.book_name, book.id);
-          if (book.available_books <= 0) {
-            option.disabled = true;
-          }
-          $(bookSelectAdd).append(option);
-        });
+      data.data.forEach((book) => {
+        const option = new Option(book.book_name, book.id);
+        if (book.available_books <= 0) {
+          option.disabled = true;
+        }
+        $(bookSelectAdd).append(option);
+      });
 
-        $(bookSelectAdd).trigger("change");
-      })
-      .catch((err) => console.error("Error mengambil data buku: ", err));
+      $(bookSelectAdd).trigger("change");
+      console.log("✅ Data buku berhasil dimuat");
+    })
+    .catch((err) => console.error("❌ Error mengambil data buku:", err));
 
-    // ========== EVENT: Auto-fill available books ==========
-    $(bookSelectAdd).on("change", function () {
-      const bookId = $(this).val();
+  // ========== EVENT: Auto-fill available books ==========
+  $(bookSelectAdd).off("change");
 
-      if (bookId && availableInputAdd) {
-        fetch(`${window.location.origin}/book/available?books=${bookId}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.data && data.data.available_books !== undefined) {
-              availableInputAdd.value = data.data.available_books;
-            } else {
-              availableInputAdd.value = "";
-            }
-          })
-          .catch((err) => {
-            console.error("Error mengambil data buku tersedia: ", err);
+  $(bookSelectAdd).on("change", function () {
+    const bookId = $(this).val();
+
+    if (bookId) {
+      fetch(`${window.location.origin}/book/available?books=${bookId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.data && data.data.available_books !== undefined) {
+            availableInputAdd.value = data.data.available_books;
+          } else {
             availableInputAdd.value = "";
-          });
-      } else if (availableInputAdd) {
-        availableInputAdd.value = "";
-      }
-    });
-  } else {
-    console.error("❌ Element #bookSelect tidak ditemukan!");
-  }
-});
+          }
+        })
+        .catch((err) => {
+          console.error("❌ Error mengambil data buku tersedia:", err);
+          availableInputAdd.value = "";
+        });
+    } else {
+      availableInputAdd.value = "";
+    }
+  });
+}
 
 // delete loans function
 function Delete(button) {
