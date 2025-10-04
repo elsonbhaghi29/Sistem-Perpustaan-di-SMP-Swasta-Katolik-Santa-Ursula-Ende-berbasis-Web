@@ -94,7 +94,7 @@ $encrypter = \Config\Services::encrypter();
 
                 <!-- pop add peminjaman - DIPERBAIKI -->
                 <div class="container__popup" id="popuploans">
-                    <div class="popup_loans">
+                    <div class="popup">
                         <div class="title">
                             <h1>Tambah Peminjaman</h1>
                             <a href="" class="popup-close">&times;</a>
