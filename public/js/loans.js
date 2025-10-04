@@ -97,12 +97,12 @@ function toggleEdit(checkbox) {
 }
 
 /*
-  Fungsi untuk validasi jumlah pinjam
+Fungsi untuk validasi jumlah pinjam
 
-  ini fungsi untuk mengecek jika 
-  dia set value 0 maka akan ada informasi error 
-  dan jika kita melebih dari ketersediaan maka dia akan error juga
-  */
+ini fungsi untuk mengecek jika 
+dia set value 0 maka akan ada informasi error 
+dan jika kita melebih dari ketersediaan maka dia akan error juga
+*/
 function validateQuantity() {
   const totalBooksInput = document.querySelector(
     "#popup__lihat input[name='quantity']"
@@ -464,39 +464,21 @@ function Delete(button) {
           }, 1000);
         }
       },
-      error: function (xhr) {
-        // Default error message
-        let errorMessage = "Terjadi kesalahan.";
-
-        // Kalau backend balikin JSON { status, message }
-        if (xhr.responseJSON && xhr.responseJSON.message) {
-          errorMessage = xhr.responseJSON.message;
-        } else if (xhr.responseText) {
-          try {
-            const res = JSON.parse(xhr.responseText);
-            if (res.message) {
-              errorMessage = res.message;
-            }
-          } catch (e) {
-            errorMessage = xhr.responseText;
-          }
-        }
-
+      error: function () {
         Toastify({
-          className: "notif bx bxs-x-circle",
-          text: "Error: " + errorMessage,
-          duration: 5000,
-          gravity: "top",
-          position: "right",
+          className: "notif bx bxs-check-circle",
+          text: "Error: Hapus Buku",
+          duration: 3000,
+          gravity: "top", // top or bottom
+          position: "right", // left, center, or right
           backgroundColor: "#FFD9E7",
           style: {
             marginTop: "60px",
-            color: "red",
+            color: "green",
             borderRadius: "8px",
           },
-          escapeHTML: false,
+          escapeHTML: false, // Allow HTML content
         }).showToast();
-
         setTimeout(() => {
           window.location.href = "/loans/list";
         }, 1000);
