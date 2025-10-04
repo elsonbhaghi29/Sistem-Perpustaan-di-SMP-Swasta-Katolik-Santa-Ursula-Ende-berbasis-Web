@@ -100,17 +100,7 @@ class LoansController extends BaseController
         }
         $decode_id_admin = $this->encrypter->decrypt(base64_decode($id_user_session['id']));
 
-        // Update otomatis pinjaman yang sudah melewati batas waktu -> jadi "Terlambat"
-        $today = date('Y-m-d');
-        $loans_dipinjam = $this->loans->where('user_id', $id_user_siswa)
-            ->where('status', 'Dipinjam')
-            ->findAll();
 
-        foreach ($loans_dipinjam as $loan) {
-            if ($loan['return_date_expected'] < $today) {
-                $this->loans->update($loan['id'], ['status' => 'Terlambat']);
-            }
-        }
 
         // Cek apakah masih ada pinjaman dengan status Terlambat
         $loan_terlambat = $this->loans->where('user_id', $id_user_siswa)

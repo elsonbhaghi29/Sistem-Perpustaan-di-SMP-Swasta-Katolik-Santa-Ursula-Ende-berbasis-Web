@@ -135,7 +135,7 @@ function Delete(button) {
           backgroundColor: "#FFD9E7",
           style: {
             marginTop: "60px",
-            color: "red",
+            color: "green",
             borderRadius: "8px",
           },
           escapeHTML: false, // Allow HTML content
