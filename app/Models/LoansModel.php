@@ -73,7 +73,7 @@ class LoansModel extends Model
                 ')
             ->join('books', 'books.id = loans.book_id')
             ->join('users', 'users.id = loans.user_id')
-            ->join('biodatausers', 'biodatausers.id = users.id')
+            ->join('biodatausers', 'biodatausers.user_id = users.id')
             ->findAll();
     }
 
