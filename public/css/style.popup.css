@@ -44,7 +44,8 @@ label {
 }
 
 .popup {
-  /* background-color: antiquewhite; */
+  /*background-color: antiquewhite;
+  */
   background-color: whitesmoke;
   width: 60rem;
   height: 600px;
@@ -52,8 +53,12 @@ label {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.25);
+  transform: translate(-50%, -50%) scale(1);
   transition: all 0.5s 0.1s;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -o-transform: translate(-50%, -50%) scale(1);
 }
 
 .popup_delete {
@@ -142,8 +147,12 @@ label {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.25);
+  transform: translate(-50%, -50%) scale(1);
   transition: all 0.5s 0.1s;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -o-transform: translate(-50%, -50%) scale(1);
 }
 
 .img {
