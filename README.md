@@ -1,4 +1,5 @@
-# CodeIgniter 4 Application Starter
+Sistem informasi perpustakaan berbasis web untuk SMP Swasta Katolik Santa Ursula Ende.
+Dirancang untu admin perpustakaan dan dikembangkan menggunakan PHP dan CodeIgniter 4 untuk mengelola data buku, anggota, serta transaksi peminjaman dan pengembalian.
 
 ## What is CodeIgniter?
 
